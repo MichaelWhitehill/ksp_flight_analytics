@@ -1,3 +1,5 @@
+# Test main for debugging KRPC connections. Use Main View for live and file views
+
 import time
 
 from DataBridge.BasicDataStreams import create_streams
@@ -9,12 +11,12 @@ def main():
     konnection = Konnection()
     konnection.connect()
 
+    # Get data streams
     streams = create_streams(konnection)
     keys = streams.keys()
     print(", ".join(keys))
     while (True):
         time.sleep(2)
-        # print("engine info: " + str(streams['engine_info']()))
         entry = str(konnection.met_stream()) + ": "
         entry_values = []
         for key in keys:
@@ -23,6 +25,8 @@ def main():
         print(entry + print_vals)
 
 if __name__ == '__main__':
+    # Make and start KRPC connection
     d_bridge = Bridge('192.168.1.11', 4283, 4284,
                            2, [], './t.txt')
     d_bridge.start()
+    main()

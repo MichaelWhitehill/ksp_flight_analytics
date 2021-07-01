@@ -1,3 +1,7 @@
+"""
+Sub-GUI for configuring RPC connection
+"""
+
 import sys
 from tkinter import Frame, Label, Entry, Button, END, messagebox, BooleanVar, Checkbutton
 from tkinter.filedialog import asksaveasfilename
@@ -66,8 +70,6 @@ class ConnectionView(Frame):
             print(e)
             messagebox.showinfo('Connection error', 'Error connecting to KRPC. Check ip, and ports')
             return
-        # self.bridge_thread = threading.Thread(target=self.d_bridge.start)
-        # self.bridge_thread.start()
         self.d_bridge.start()
         self.disable()
 

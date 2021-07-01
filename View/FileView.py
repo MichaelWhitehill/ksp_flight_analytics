@@ -1,3 +1,6 @@
+"""
+Sub-GUI for reading from file
+"""
 from tkinter import Frame, Label, Button
 from tkinter.filedialog import askopenfilename
 

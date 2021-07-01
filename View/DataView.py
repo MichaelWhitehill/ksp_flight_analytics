@@ -1,3 +1,7 @@
+"""
+Plotting class for displaying streams or fields from file
+"""
+
 from tkinter import Frame
 
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
@@ -12,12 +16,10 @@ class DataView(Frame):
         canvas = FigureCanvasTkAgg(self.fig, master=self)
         self.plot_widget = canvas.get_tk_widget()
         self.plot_widget.grid(row=0, column=0, rowspan=10, columnspan=10)
-        # friendly names to subplots
+        # dictionary of friendly names to subplots
         self.sub_plots = {}
-        # max dynamic pressure
-        # max G-force
-        # max air intake
 
+    # For updating and plotting live data
     def receive_entry(self, entry):
         for key in entry.keys():
             if key == 'met':
@@ -25,6 +27,7 @@ class DataView(Frame):
             self.add_data(key, [float(entry['met'])], float(entry[key]))
         self.fig.canvas.draw()
 
+    # For taking input from files. Receives all data at once
     def receive_mass(self, entry):
         for key in entry.keys():
             if key == 'met':
@@ -33,7 +36,6 @@ class DataView(Frame):
         self.fig.canvas.draw()
 
     def add_plot(self, plot_name):
-        print("Added plot: " + plot_name)
         ax = self.fig.add_subplot(4, 6, len(self.sub_plots.keys())+1)
         ax.set_title(plot_name)
         self.sub_plots[plot_name] = ax

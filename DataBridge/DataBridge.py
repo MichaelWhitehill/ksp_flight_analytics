@@ -1,3 +1,7 @@
+"""
+This file establishes an RPC connection, and bridges data from the streams to the listeners
+Used for plotting and saving live data
+"""
 import time
 
 from DataBridge.BasicDataStreams import create_streams
@@ -22,7 +26,6 @@ class Bridge:
     def write_to_file(self, line):
         if not self.file:
             return
-        print("logging: " + line + "\n")
         self.file.write(line+"\n")
 
     def start(self):
@@ -30,7 +33,6 @@ class Bridge:
         keys = self.streams.keys()
         self.write_to_file(','.join(keys))
         while self.cont:
-            print("Getting data")
             time.sleep(self.update_time)
             entry_values = []
             entry_dict = {}
@@ -39,7 +41,6 @@ class Bridge:
                 entry_values.append(str(val))
                 entry_dict[key] = val
             print_vals = ','.join(entry_values)
-            # print(entry + print_vals)
             self.write_to_file(print_vals)
             for l in self.listeners:
                 l.receive_entry(entry_dict)

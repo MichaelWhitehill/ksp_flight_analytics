@@ -13,6 +13,5 @@ class Konnection:
             address=ip,
             rpc_port=rpc_port, stream_port=stream_port
         )
-        print(self.conn.krpc.get_status().version)
         self.vessel = self.conn.space_center.active_vessel
         print("Successful connection\n Logging data for: " + self.vessel.name)
